@@ -1,4 +1,5 @@
 import Vue from "vue";
+import router from '../route';
 import {
   Button,
   Table,
@@ -57,5 +58,6 @@ Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
 //------------ Vue插件装配 结束 -----------------
 
 export default new Vue({
+  router,
   render: h => h(App)
 }).$mount("#app");
