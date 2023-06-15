@@ -10,10 +10,13 @@ import { resolveHandle } from '../../lib/messageResolve';
 import { GlobalStore } from '../../store/GlobalStore';
 import { getWebViewContent } from '../../utils';
 
+import ReusedWebviewPanel from './ReusedWebviewPanel';
+
+
 // 处理器
 async function handle(agrs: any, command: string) {
     // 创建webview
-    const panel = vscode.window.createWebviewPanel(
+    const panel = ReusedWebviewPanel.create(
         'testWebview', // viewType
         "WebView演示", // 视图标题
         vscode.ViewColumn.One, // 显示在编辑器的哪个部位

@@ -17,6 +17,8 @@ export async function activate(context: vscode.ExtensionContext) {
 		context.subscriptions.push(vscode.commands.registerCommand(item.command, args => item.handle(args, item.command)));
 	}
 
+	// vscode.window.registerTreeDataProvider('helloWorld', new TreeViewsProvider());
+
 }
 
 /**

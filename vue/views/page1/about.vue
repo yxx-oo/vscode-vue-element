@@ -80,7 +80,9 @@ export default {
     async handleCreatTypingFile() {
       try {
         this.isLoading = true;
-        await this.$vscPost("saveTypingFile");
+        await this.$vscPost("saveTypingFile").then((res) => {
+          sayOpSuccess(res);
+        });
         sayOpSuccess("生成成功!");
       } catch (error) {
         sayOpError(error.message);

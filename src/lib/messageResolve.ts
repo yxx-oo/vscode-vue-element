@@ -1,5 +1,6 @@
 import { WebviewPanel } from "vscode";
-
+import * as vscode from 'vscode'
+import axios from "axios";
 /**
  * @Author: Sun Rising
  * @Date: 2021-01-20 15:32:46
@@ -31,11 +32,35 @@ export async function resolveHandle(message: webviewMsg, panel: WebviewPanel) {
         return
     }
     if (message.command == "saveTypingFile") {
-        panel.webview.postMessage(Object.assign(message, { data: "ok" }));
+        panel.webview.postMessage(Object.assign(message, { data: "ok67676767676" }));
         return
     }
     if (message.command == "saveEditPageFile") {
         panel.webview.postMessage(Object.assign(message, { data: "ok" }));
         return
     }
+    if (message.command == "getSettingConfig") {
+        let config = vscode.workspace.getConfiguration();
+        let value = config.get('vscode-vue-element-demo.textTest');
+        let _value = value === undefined ? "" : value;
+        axios
+            .get(`http://10.22.110.27:12023/mesh/alive`)
+            .then((response) => {
+                console.log(response,1122222)
+            })
+            .catch((err) => console.log(err));
+
+        console.log(_value, 888888999)
+        panel.webview.postMessage(Object.assign(message, { data: _value }));
+        return
+    }
+    if (message.command == "updateSettingConfig") {
+        let config = vscode.workspace.getConfiguration();
+        config.update("vscode-vue-element-demo.textTest", 'djkashdkhas', true)
+        panel.webview.postMessage(Object.assign(message, { data: "ok" }));
+        return
+    }
+
+
+
 }

@@ -21,7 +21,7 @@
     "build:vue": "vue-cli-service build --dest media/page1 vue/views/page1/main.js",
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
+    "watch": "yarn compile && npm run build:vue tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts"
   },
@@ -31,7 +31,39 @@
         "command": "extension.hello.vue.element.demo",
         "title": "Hello Vue Element Demo"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vscode-vue-element-demo",
+          "title": "vscode-vue-element-demo",
+          "icon": "asset/apsIcon.svg"
+        }
+      ]
+    },
+    "views": {
+      "vscode-vue-element-demo": [
+        {
+          "id": "vscode-vue-element-demo.createProject",
+          "name": "createProject"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "vscode-vue-element-demo.createProject",
+        "contents": "\n [🤡开始](command:extension.hello.vue.element.demo)"
+      }
+    ],
+    "configuration": {
+      "properties": {
+        "vscode-vue-element-demo.textTest": {
+          "type": "string",
+          "default": "",
+          "description": "输入框测试"
+        }
+      }
+    }
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.6",
