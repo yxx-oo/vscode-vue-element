@@ -6,6 +6,10 @@
 		"lib": [
 			"es6"
 		],
+		"experimentalDecorators": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
 		"strict": true /* enable all strict type-checking options */
 		/* Additional Checks */

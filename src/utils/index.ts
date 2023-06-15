@@ -81,3 +81,35 @@ export function getWebViewContent(context: vscode.ExtensionContext, templatePath
     });
     return html;
 }
+
+function isRemoteLink(link: string) {
+    return /^(https?|vscode-webview-resource|javascript):/.test(link);
+}
+
+export function formatHTMLWebviewResourcesUrl(
+    html: string,
+    conversionUrlFn: (link: string) => string
+) {
+    const LinkRegexp = /\s?(?:src|href)=('|")(.*?)\1/gi;
+    let matcher = LinkRegexp.exec(html);
+
+    while (matcher) {
+        const origin = matcher[0];
+        const originLen = origin.length;
+        const link = matcher[2];
+        if (!isRemoteLink(link)) {
+            let resourceLink = link;
+            try {
+                resourceLink = conversionUrlFn(link);
+                html =
+                    html.substring(0, matcher.index) +
+                    origin.replace(link, resourceLink) +
+                    html.substring(matcher.index + originLen);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        matcher = LinkRegexp.exec(html);
+    }
+    return html;
+}
