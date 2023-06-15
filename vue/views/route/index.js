@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router'
-import about from '../page1/about.vue';
-import home from '../page1/home.vue';
+import About from '../page1/about.vue';
+import Home from '../page1/home.vue';
+import Layout from '../layout/index.vue';
 
 Vue.use(Router);
 
@@ -9,7 +10,16 @@ export const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../page1/home.vue'),
+    component: Layout,
+    children: [
+      {
+        path: '/',
+        name: '首页',
+        meta: {
+        },
+        component: () => import('../page1/home.vue'),
+      }
+    ]
   },
   {
     path: '/about',
